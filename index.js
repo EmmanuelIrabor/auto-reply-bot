@@ -14,4 +14,7 @@ client.on('messageCreate' , async(message)=>{
     }
 });
 
-client.login(process.env.TOKEN)
+client.login(process.env.TOKEN);
+
+const { File } = require("formdata-node");
+global.File = File;
