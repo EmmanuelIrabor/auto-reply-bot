@@ -1,15 +1,33 @@
+// const { Client } = require('discord.js-selfbot-v13')
+
+// const client = new Client({
+//     checkupdate: false
+// });
+
+// Client.on('ready', async () =>{
+//     console.log('Client is ready !')
+// });
+
+// client.on('messageCreate' , async(message)=>{
+//     if (message.content.toLowerCase () === "test"){
+//         message.reply("Test worked!")
+//     }
+// });
+
+// client.login(process.env.TOKEN);
+
 const { Client } = require('discord.js-selfbot-v13')
 
 const client = new Client({
-    checkupdate: false
+    checkUpdate: false  
 });
 
-Client.on('ready', async () =>{
+client.on('ready', async () =>{  
     console.log('Client is ready !')
 });
 
-client.on('messageCreate' , async(message)=>{
-    if (message.content.toLowerCase () === "test"){
+client.on('messageCreate', async(message) => {
+    if (message.content.toLowerCase() === "test") {
         message.reply("Test worked!")
     }
 });
