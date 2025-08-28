@@ -1,19 +1,17 @@
-const { Client } = require("discord.js-selfbot-v13");
-const client = new Client();
+const { Client } = require('discord.js-selfbot-v13')
 
-const triggers = ["wallet", "staking", "complain"];
-const reply = "GO 👇 for this ✅\ndiscord.gg/yourlink";
-
-client.on("ready", () => {
-    console.log(✅ Logged in as ${client.user.tag});
+const client = new Client({
+    checkupdate: false
 });
 
-client.on("messageCreate", async (message) => {
-    if (message.author.id === client.user.id) return;
+Client.on('ready', async () =>{
+    console.log('Client is ready !')
+});
 
-    if (triggers.some(word => message.content.toLowerCase().includes(word))) {
-        message.channel.send(reply);
+client.on('messageCreate' , async(message)=>{
+    if (message.content.toLowerCase () === "test"){
+        message.reply("Test worked!")
     }
 });
 
-client.login(process.env.TOKEN);
+client.login(process.env.TOKEN)
