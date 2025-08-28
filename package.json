@@ -6,8 +6,6 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "node index.js",
-    "postinstall": "node check-node-version.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "",
@@ -16,11 +14,8 @@
     "node": "20.x"
   },
   "dependencies": {
-    "formdata-node": "^6.0.3",
-    "discord.js-selfbot-v13": "^3.7.0"
-  },
-  "devDependencies": {
-    "semver": "^7.6.3"
+    "discord.js-selfbot-v13": "^3.7.0",
+    "formdata-node": "^6.0.3"
   }
 }
 
