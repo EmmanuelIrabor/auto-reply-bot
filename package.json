@@ -1,3 +1,5 @@
+
+
 {
   "name": "self-bot",
   "version": "1.0.0",
@@ -8,8 +10,12 @@
   },
   "author": "",
   "license": "ISC",
+  "engines": {
+    "node": "20.x"
+  },
   "dependencies": {
     "discord.js-selfbot-v13": "^3.7.0",
     "formdata-node": "^6.0.3"
   }
 }
+
