@@ -16,11 +16,11 @@
 
 // client.login(process.env.TOKEN);
 
-const { Client } = require('discord.js-selfbot-v13');
+// const { Client } = require('discord.js-selfbot-v13');
 
-const client = new Client({
-    checkUpdate: false
-});
+// const client = new Client({
+//     checkUpdate: false
+// });
 
 // Array of keywords to detect (case insensitive)
 // const keywords = [
