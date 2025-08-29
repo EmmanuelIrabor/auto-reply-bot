@@ -323,23 +323,16 @@ client.on('messageCreate', async (message) => {
         console.log(`Detected keyword: ${foundKeyword} in message: ${message.content.substring(0, 50)}...`);
         
         try {
-            // Use messageReference to create the reply bubble without tagging
-            const sentMessage = await message.channel.send({
+            // This creates the yellow reply bubble without username tagging
+            const replyMessage = await message.reply({
                 content: "📨 **O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRΕ**\n\n**[<discord:///#@discord.gg/yxkTketK>]**",
-                reply: {
-                    messageReference: message.id,
-                    failIfNotExists: false
-                },
-                allowedMentions: {
-                    repliedUser: false, // No @ mention
-                    parse: [] // Disable all mentions
-                }
+                allowedMentions: { repliedUser: false }
             });
             
             // Schedule the reply message for deletion after 1 minute
             setTimeout(async () => {
                 try {
-                    await sentMessage.delete();
+                    await replyMessage.delete();
                     console.log('Auto-deleted reply message');
                 } catch (deleteError) {
                     console.error('Error deleting message:', deleteError);
@@ -347,8 +340,8 @@ client.on('messageCreate', async (message) => {
             }, 60000);
             
             // Store message reference for potential cleanup
-            messagesToDelete.set(sentMessage.id, {
-                message: sentMessage,
+            messagesToDelete.set(replyMessage.id, {
+                message: replyMessage,
                 timestamp: Date.now()
             });
             
