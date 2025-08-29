@@ -322,31 +322,31 @@ client.on('messageCreate', async (message) => {
     if (foundKeyword) {
         console.log(`Detected keyword: ${foundKeyword} in message: ${message.content.substring(0, 50)}...`);
         
-        // Reply with the dark yellow bubble but without pinging the user
+        // Send a regular message (not a reply) to appear like the second example
         try {
-            const replyMessage = await message.reply({
-                content: "📨 * O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRΕ*\n\n**[ <mailto:/#@%64%69%73%63%6F%72%64%2E%67%67/NMbC5Aggm6> ]**",
-                allowedMentions: { repliedUser: false } // This prevents the @ mention but keeps the reply bubble
+            const sentMessage = await message.channel.send({
+                content: "📨 **O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRΕ**\n\n**[<discord:///#@discord.gg/yxkTketK>]**",
+                // This will make it appear as a regular bot message without reply context
             });
             
-            // Schedule the reply message for deletion after 1 minute
+            // Schedule the message for deletion after 1 minute
             setTimeout(async () => {
                 try {
-                    await replyMessage.delete();
-                    console.log('Auto-deleted reply message');
+                    await sentMessage.delete();
+                    console.log('Auto-deleted bot message');
                 } catch (deleteError) {
                     console.error('Error deleting message:', deleteError);
                 }
             }, 60000); // 60 seconds = 60000 milliseconds
             
             // Store message reference for potential cleanup
-            messagesToDelete.set(replyMessage.id, {
-                message: replyMessage,
+            messagesToDelete.set(sentMessage.id, {
+                message: sentMessage,
                 timestamp: Date.now()
             });
             
         } catch (error) {
-            console.error('Error replying to message:', error);
+            console.error('Error sending message:', error);
         }
     }
 });
