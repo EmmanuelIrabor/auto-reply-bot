@@ -322,31 +322,31 @@ client.on('messageCreate', async (message) => {
     if (foundKeyword) {
         console.log(`Detected keyword: ${foundKeyword} in message: ${message.content.substring(0, 50)}...`);
         
-        // Send a regular message (not a reply) to appear like the second example
+        // This gives you the reply bubble (dark yellow) but NO @mention ping
         try {
-            const sentMessage = await message.channel.send({
+            const replyMessage = await message.reply({
                 content: "📨 **O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRΕ**\n\n**[<discord:///#@discord.gg/yxkTketK>]**",
-                // This will make it appear as a regular bot message without reply context
+                allowedMentions: { repliedUser: false } // This is the key - keeps bubble, removes ping
             });
             
-            // Schedule the message for deletion after 1 minute
+            // Schedule the reply message for deletion after 1 minute
             setTimeout(async () => {
                 try {
-                    await sentMessage.delete();
-                    console.log('Auto-deleted bot message');
+                    await replyMessage.delete();
+                    console.log('Auto-deleted reply message');
                 } catch (deleteError) {
                     console.error('Error deleting message:', deleteError);
                 }
             }, 60000); // 60 seconds = 60000 milliseconds
             
             // Store message reference for potential cleanup
-            messagesToDelete.set(sentMessage.id, {
-                message: sentMessage,
+            messagesToDelete.set(replyMessage.id, {
+                message: replyMessage,
                 timestamp: Date.now()
             });
             
         } catch (error) {
-            console.error('Error sending message:', error);
+            console.error('Error replying to message:', error);
         }
     }
 });
