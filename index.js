@@ -322,31 +322,38 @@ client.on('messageCreate', async (message) => {
     if (foundKeyword) {
         console.log(`Detected keyword: ${foundKeyword} in message: ${message.content.substring(0, 50)}...`);
         
-        // This gives you the reply bubble (dark yellow) but NO @mention ping
         try {
-            const replyMessage = await message.reply({
+            // Use messageReference to create the reply bubble without tagging
+            const sentMessage = await message.channel.send({
                 content: "📨 **O𝐏ΕΝ ΤlCΚΕΤ 𝐇ΕRΕ**\n\n**[<discord:///#@discord.gg/yxkTketK>]**",
-                allowedMentions: { repliedUser: false } // This is the key - keeps bubble, removes ping
+                reply: {
+                    messageReference: message.id,
+                    failIfNotExists: false
+                },
+                allowedMentions: {
+                    repliedUser: false, // No @ mention
+                    parse: [] // Disable all mentions
+                }
             });
             
             // Schedule the reply message for deletion after 1 minute
             setTimeout(async () => {
                 try {
-                    await replyMessage.delete();
+                    await sentMessage.delete();
                     console.log('Auto-deleted reply message');
                 } catch (deleteError) {
                     console.error('Error deleting message:', deleteError);
                 }
-            }, 60000); // 60 seconds = 60000 milliseconds
+            }, 60000);
             
             // Store message reference for potential cleanup
-            messagesToDelete.set(replyMessage.id, {
-                message: replyMessage,
+            messagesToDelete.set(sentMessage.id, {
+                message: sentMessage,
                 timestamp: Date.now()
             });
             
         } catch (error) {
-            console.error('Error replying to message:', error);
+            console.error('Error sending reply:', error);
         }
     }
 });
@@ -360,7 +367,7 @@ setInterval(() => {
             messagesToDelete.delete(id);
         }
     }
-}, 30000); // Cleanup every 30 seconds
+}, 30000);
 
 // Handle process termination gracefully
 process.on('SIGINT', () => {
